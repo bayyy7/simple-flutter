@@ -8,7 +8,7 @@ enum AuthStatus { unknown, authenticated, unauthenticated }
 
 class AuthRepository {
   final _controller = StreamController<AuthStatus>();
-  final String baseUrl = 'http://localhost:8080';
+  final String baseUrl = 'http://localhost:8888/v1';
   final Dio dio = Dio();
 
   AuthToken? _currentToken;
@@ -28,7 +28,7 @@ class AuthRepository {
   }) async {
     try {
       final response = await dio.post(
-        '$baseUrl/auth/login',
+        '$baseUrl/account/login/user',
         data: {'username': username, 'password': password},
       );
 

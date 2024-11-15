@@ -6,7 +6,7 @@ import 'package:user_repository/src/models/models.dart';
 class UserRepository {
   User? _user;
   String? _lastToken;
-  final String baseUrl = 'http://localhost:8080';
+  final String baseUrl = 'http://localhost:8888/v1';
   final Dio dio = Dio();
 
   Future<User?> getUser(String token) async {
@@ -14,7 +14,7 @@ class UserRepository {
     
     try {
       final response = await dio.get(
-        '$baseUrl/account/my',
+        '$baseUrl/user/profile',
         options: Options(
           headers: {
             'Authorization': token,
