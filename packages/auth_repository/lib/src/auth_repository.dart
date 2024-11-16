@@ -1,5 +1,5 @@
+// auth_repository.dart
 import 'dart:async';
-
 import 'package:dio/dio.dart';
 
 part 'auth_token.dart';
@@ -10,15 +10,10 @@ class AuthRepository {
   final _controller = StreamController<AuthStatus>();
   final String baseUrl = 'http://localhost:8888/v1';
   final Dio dio = Dio();
-
   AuthToken? _currentToken;
 
-  // To create a stream builder,
-  // we create a function with the keyword ‘async*’ and have it return a stream
   Stream<AuthStatus> get status async* {
-    // To emit a data, we can use the keyword ‘yield’,
     yield AuthStatus.unauthenticated;
-    //to emit all data from another stream, we can use the keyword ‘yield*’
     yield* _controller.stream;
   }
 
@@ -34,12 +29,9 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         _currentToken = AuthToken.fromJson(response.data);
-        _controller.add(
-          AuthStatus.authenticated,
-        );
+        _controller.add(AuthStatus.authenticated);
       } else {
-        throw Exception(
-            'Failed to log in with status code: ${response.statusCode}');
+        throw Exception('Failed to log in with status code: ${response.statusCode}');
       }
     } catch (e) {
       print('login error: $e');

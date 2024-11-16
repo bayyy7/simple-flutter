@@ -67,7 +67,7 @@ class LoginForm extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    // Handle sign up
+                    //
                   },
                   child: const Text(
                     'Sign up',
